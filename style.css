@@ -11,6 +11,8 @@ body  {
   color: rgb(255, 254, 254);
   text-align: center;
   justify-content: center;
+  align-items: center;
+  margin:auto;
 }
 h1 {
     text-align: center;
@@ -27,6 +29,7 @@ p{
   text-align: left;
   justify-content: center;
   align-content: center;
+  margin: auto;
 
 }
 .answer {
