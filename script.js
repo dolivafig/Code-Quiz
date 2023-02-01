@@ -17,13 +17,13 @@ const questions = [
     },
     {
         question: "What does the s in https stand for?",
-        choices: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "option 3"
+        choices: ["safe", "secure", "sexy", "stuff"],
+        answer: "secure"
     },
     {
-        question: "What does HTML stand for?",
-        choices: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "option 4"
+        question: "What does .js stand for?",
+        choices: [".javascript", ".jason", "javasquare", ".jayson"],
+        answer: ""
     },
 ];
 
@@ -39,46 +39,63 @@ document.getElementById("header").style.display = "none";
 var i =0;
 
 function showQuestion() {
-document.getElementById("quiz-title").innerHTML = questions[i].questions;
-for(var j=0; j < questions[i].choices.length; j++){
+document.getElementById("quiz-title").innerHTML = questions[i].question;
+var title = document.getElementById("quiz-title");
+title.innerHTML = questions[i].question;
+document.getElementById("quiz-page").appendChild(title);
+ 
+ for(var j=0; j < questions[i].choices.length; j++){
     var btn=document.createElement("button");
-    var tag = document.createElement("p");
-    tag.innerHTML = questions[i].question[j];
     btn.innerHTML = questions[i].choices[j];
-    document.getElementById("quiz-page").appendChild(tag);
+   
     document.getElementById("quiz-page").appendChild(btn);
-    btn.addEventListener("click", function() {
+    
+btn.addEventListener("click", function() {
         if (questions[i].choices == questions[i].answer){
             score++;
+            
+        } else {
+            secondsLeft-5;
         }
-        else {
-            secondsLeft -5;
-        }
-        
-        console.log(score)
         i++;
+        // var element = document.getElementById("quiz-page");
+        // while (element.hasChildNodes()) {
+            
+        //     element.removeChild(element.firstChild)
+        
+        // }
+
+        if (i < questions.length){
+          
         showQuestion();
+        } else {
+            secondsLeft = 0;
+        }
     })
-    }
 }
 
+    
+}
+    
+var secondsLeft=15;
 
 function setTime() {
  document.getElementById("start-page").style.display="none";
  document.getElementById("quiz-page").style.display = "block";
  document.getElementById("header").style.display = "block";
 
-    var secondsLeft=15;
+    
  timeEl.textContent = secondsLeft + " sec";
     var timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " sec";
     
-    if(secondsLeft===0) {
+    if(secondsLeft===0 || secondsLeft < 0 ) {
         clearInterval(timerInterval);
         timeEl.textContent = "Time is up!";
         document.getElementById("quiz-page").style.display = "none";
         document.getElementById("score").style.display = "block";
+       document.getElementById("score").innerHTML = score;
         // document.getElementById("start-page").style.display="block";
     }
 }, 1000);
