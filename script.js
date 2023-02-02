@@ -1,5 +1,6 @@
 var headerdiv = document.getElementsByClassName("header");
-
+var initials = document.getElementById("username");
+var score = 0;
  var timeEl= document.querySelector(".time");
 
 var startbtn = document.querySelector(".startbtn");
@@ -23,18 +24,18 @@ const questions = [
     {
         question: "What does .js stand for?",
         choices: [".javascript", ".jason", "javasquare", ".jayson"],
-        answer: ""
+        answer: ".javascript "
     },
 ];
 
 var currentQuestion=0;
-var score = 0;
+
 // var quizquestions = document.getElementById("quiz-title"); 
 // var firstanswer = document.getElementById("firstanswer");
 
 startbtn.addEventListener("click", setTime);
 document.getElementById("quiz-page").style.display = "none";
-document.getElementById("score").style.display = "none";
+document.getElementById("score-page").style.display = "none";
 document.getElementById("header").style.display = "none";
 var i =0;
 
@@ -49,13 +50,17 @@ document.getElementById("quiz-page").appendChild(title);
     btn.innerHTML = questions[i].choices[j];
    
     document.getElementById("quiz-page").appendChild(btn);
-    
-btn.addEventListener("click", function() {
-        if (questions[i].choices == questions[i].answer){
+
+btn.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log(questions[i].choices)
+    console.log(questions[i].answer)
+        if (questions[i].choices === questions[i].answer){
             score++;
-            
+            console.log(score) 
+
         } else {
-            secondsLeft-5;
+            secondsLeft--;
         }
         i++;
         // var element = document.getElementById("quiz-page");
@@ -68,8 +73,13 @@ btn.addEventListener("click", function() {
         if (i < questions.length){
           
         showQuestion();
+
         } else {
-            secondsLeft = 0;
+            document.getElementById("score-page").style.display = "block";
+            document.getElementById("score-page").innerHTML = score;
+            document.getElementById("quiz-page").style.display = "none";
+            document.getElementById("start-page").style.display ="none";
+
         }
     })
 }
@@ -77,7 +87,7 @@ btn.addEventListener("click", function() {
     
 }
     
-var secondsLeft=15;
+var secondsLeft=10;
 
 function setTime() {
  document.getElementById("start-page").style.display="none";
@@ -94,8 +104,7 @@ function setTime() {
         clearInterval(timerInterval);
         timeEl.textContent = "Time is up!";
         document.getElementById("quiz-page").style.display = "none";
-        document.getElementById("score").style.display = "block";
-       document.getElementById("score").innerHTML = score;
+        document.getElementById("score-page").style.display = "block";
         // document.getElementById("start-page").style.display="block";
     }
 }, 1000);
@@ -107,4 +116,31 @@ showQuestion();
 //     add if statement for deducting time if wrong answer.
 }
 
+// function saveLastScore() {
+//   // Save related form data as an object
+//   var studentScore = {
+//     student: student.value,
+  
+//   };
+//   // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
+//   localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
+// }
 
+// function renderLastGrade() {
+//   // Use JSON.parse() to convert text to JavaScript object
+//   var lastGrade = JSON.parse(localStorage.getItem("studentGrade"));
+//   // Check if data is returned, if not exit out of the function
+//   if (lastGrade !== null) {
+//   document.getElementById("saved-name").innerHTML = lastGrade.student;
+//   document.getElementById("saved-grade").innerHTML = lastGrade.grade;
+//   document.getElementById("saved-comment").innerHTML = lastGrade.comment;
+//   } else {
+//     return;
+//   }
+// }
+
+// saveButton.addEventListener("click", function(event) {
+// event.preventDefault();
+// saveLastGrade();
+// renderLastGrade();
+// });
