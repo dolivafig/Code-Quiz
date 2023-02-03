@@ -63,12 +63,14 @@ btn.addEventListener("click", function(event) {
             secondsLeft--;
         }
         i++;
-        // var element = document.getElementById("quiz-page");
+        var element = document.querySelectorAll("btn");
+
+        console.log(element)
         // while (element.hasChildNodes()) {
             
-        //     element.removeChild(element.firstChild)
+        // element.removeChild(element.firstChild)
         
-        // }
+        //  }
 
         if (i < questions.length){
           
@@ -81,7 +83,10 @@ btn.addEventListener("click", function(event) {
             document.getElementById("start-page").style.display ="none";
 
         }
+
+        btn.setAttribute("style", "margin:auto; text-align: center; display: block;")
     })
+
 }
 
     
@@ -109,6 +114,12 @@ function setTime() {
     }
 }, 1000);
 showQuestion();
+
+
+// var savebtn = document.querySelector("savebtn");
+// savebtn.addEventListener("click", function(event) {
+
+// }
 
 // for (var i=0; i<questions.lenght; i++) {
 //     var quizquestions = document.getElementById("quiz-title");
