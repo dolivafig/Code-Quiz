@@ -40,8 +40,8 @@ document.getElementById("header").style.display = "none";
 var i =0;
 
 function showQuestion() {
-document.getElementById("quiz-title").innerHTML = questions[i].question;
-var title = document.getElementById("quiz-title");
+// document.getElementById("quiz-title").innerHTML = questions[i].question;
+var title = document.createElement("h2");
 title.innerHTML = questions[i].question;
 document.getElementById("quiz-page").appendChild(title);
  
@@ -55,6 +55,8 @@ btn.addEventListener("click", function(event) {
     event.preventDefault();
     console.log(questions[i].choices)
     console.log(questions[i].answer)
+    document.getElementById("quiz-page").innerHTML = "";
+
         if (questions[i].choices === questions[i].answer){
             score++;
             console.log(score) 
