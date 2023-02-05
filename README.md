@@ -8,4 +8,4 @@
 
 ### An image of the end result - displaying the save score board.
 ![image](CodeQuiz.png)
-## Click [here]() to go to the website.
+## Click [here](https://dolivafig.github.io/Code-Quiz/) to go to the website.
