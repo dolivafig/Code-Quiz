@@ -5,7 +5,7 @@ var score = 0;
  var timeEl= document.querySelector(".time");
 
 var startbtn = document.querySelector(".startbtn");
-
+// create an array of object to hold questions, choices, and answer
 const questions = [
     {
         question: "What does HTML stand for?",
@@ -33,8 +33,9 @@ var currentQuestion=0;
 
 // var quizquestions = document.getElementById("quiz-title"); 
 // var firstanswer = document.getElementById("firstanswer");
-
+// add event listener to start button to initiate the timer
 startbtn.addEventListener("click", setTime);
+// remove the other elements by display none
 document.getElementById("quiz-page").style.display = "none";
 document.getElementById("score-page").style.display = "none";
 document.getElementById("header").style.display = "none";
@@ -46,15 +47,17 @@ var title = document.createElement("h2");
 title.innerHTML = questions[i].question;
 document.getElementById("quiz-page").appendChild(title);
  
+//create a for loop to generate and append questions and for all objects in array
  for(var j=0; j < questions[i].choices.length; j++){
     var btn=document.createElement("button");
     btn.innerHTML = questions[i].choices[j];
    
     document.getElementById("quiz-page").appendChild(btn);
 
+    //another event listener to register the option choosen by user
 btn.addEventListener("click", function(event) {
    
-    
+    // resets the whole element, removing question and boxes of previous q.
     document.getElementById("quiz-page").innerHTML = "";
 
     var selected = event.target.textContent;
@@ -96,6 +99,7 @@ console.log(score)
 var secondsLeft=15;
 var timerInterval;
 
+//function to set timer and display other elements when timer is out of time
 function setTime() {
  document.getElementById("start-page").style.display="none";
  document.getElementById("quiz-page").style.display = "block";
@@ -116,7 +120,6 @@ function setTime() {
     }
 }, 1000);
 }
-
 showQuestion();
 
 
@@ -125,7 +128,7 @@ var userinitials = document.querySelector("#userinitials");
 var userscore = document.querySelector("#userscore"); 
 
 //////////////////////////////
-
+//event listener for submit to save button and record initials and score in local storage
 savebtn.addEventListener("click", function(event) {
     event.preventDefault();
     
@@ -138,6 +141,7 @@ savebtn.addEventListener("click", function(event) {
     }
 )
 
+//this will display the last user saved to local storage on the page
 function renderLastUser (){
     var user = localStorage.getItem("initials");
     var userScore = localStorage.getItem("score");
