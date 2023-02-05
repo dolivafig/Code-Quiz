@@ -1,6 +1,7 @@
 var headerdiv = document.getElementsByClassName("header");
-var initials = document.getElementById("username");
+
 var score = 0;
+
  var timeEl= document.querySelector(".time");
 
 var startbtn = document.querySelector(".startbtn");
@@ -23,8 +24,8 @@ const questions = [
     },
     {
         question: "What does .js stand for?",
-        choices: [".javascript", ".jason", "javasquare", ".jayson"],
-        answer: ".javascript "
+        choices: ["javascript", "jason", "javasquare", "jayson"],
+        answer: "javascript"
     },
 ];
 
@@ -52,49 +53,48 @@ document.getElementById("quiz-page").appendChild(title);
     document.getElementById("quiz-page").appendChild(btn);
 
 btn.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log(questions[i].choices)
-    console.log(questions[i].answer)
+   
+    
     document.getElementById("quiz-page").innerHTML = "";
 
-        if (questions[i].choices === questions[i].answer){
-            score++;
-            console.log(score) 
+    var selected = event.target.textContent;
 
-        } else {
-            secondsLeft--;
-        }
+console.log(selected)
+console.log(questions[i].answer)
+
+     CheckAnswer(selected, questions[i].answer);
+
         i++;
-        var element = document.querySelectorAll("btn");
-
-        console.log(element)
-        // while (element.hasChildNodes()) {
-            
-        // element.removeChild(element.firstChild)
-        
-        //  }
 
         if (i < questions.length){
           
         showQuestion();
 
         } else {
+            clearInterval(timerInterval);
             document.getElementById("score-page").style.display = "block";
-            document.getElementById("score-page").innerHTML = score;
+            document.getElementById("score").textContent = "Score: " + score;
             document.getElementById("quiz-page").style.display = "none";
             document.getElementById("start-page").style.display ="none";
 
         }
-
-        btn.setAttribute("style", "margin:auto; text-align: center; display: block;")
     })
-
-}
-
+ }}
     
-}
-    
-var secondsLeft=10;
+ function CheckAnswer (selected, correct) {
+    if (selected == correct){
+        score++;
+  
+
+    } else {
+        secondsLeft-=5;
+        console.log("test")
+    }
+
+console.log(score)
+ }
+var secondsLeft=15;
+var timerInterval;
 
 function setTime() {
  document.getElementById("start-page").style.display="none";
@@ -103,31 +103,53 @@ function setTime() {
 
     
  timeEl.textContent = secondsLeft + " sec";
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " sec";
     
     if(secondsLeft===0 || secondsLeft < 0 ) {
         clearInterval(timerInterval);
-        timeEl.textContent = "Time is up!";
+        timeEl.textContent = "Game Over";
         document.getElementById("quiz-page").style.display = "none";
         document.getElementById("score-page").style.display = "block";
         // document.getElementById("start-page").style.display="block";
     }
 }, 1000);
+}
+
 showQuestion();
 
 
-// var savebtn = document.querySelector("savebtn");
-// savebtn.addEventListener("click", function(event) {
+var savebtn = document.querySelector(".savebtn");
+var userinitials = document.querySelector("#userinitials");
+var userscore = document.querySelector("#userscore"); 
 
-// }
+//////////////////////////////
 
+savebtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    var initials = document.querySelector("#username").value
+
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("score", score);
+
+  renderLastUser();
+    }
+)
+
+function renderLastUser (){
+    var user = localStorage.getItem("initials");
+    var userScore = localStorage.getItem("score");
+console.log("test")
+    userinitials.textContent = user;
+    userscore.textContent = userScore;
+
+}
 // for (var i=0; i<questions.lenght; i++) {
 //     var quizquestions = document.getElementById("quiz-title");
 //     quizquestions.textContent = questions[i];
 //     add if statement for deducting time if wrong answer.
-}
 
 // function saveLastScore() {
 //   // Save related form data as an object
@@ -156,4 +178,4 @@ showQuestion();
 // event.preventDefault();
 // saveLastGrade();
 // renderLastGrade();
-// });
+// })

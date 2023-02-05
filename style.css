@@ -43,3 +43,11 @@ p{
   margin: auto;
   
 }
+
+.btn {
+  display: block;
+  text-align: left;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+}
